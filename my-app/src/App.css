@@ -3,6 +3,17 @@
   color: blue;
 }
 
+button{
+  display: block;
+  margin: 10px auto;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px gray;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
