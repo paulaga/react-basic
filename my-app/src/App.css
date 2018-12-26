@@ -11,8 +11,11 @@ button{
   cursor: pointer;
   box-shadow: 2px 2px 4px gray;
   padding: 5px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
+
+.purple{ color: #939;}
+.thin{ font-weight: 100;}
 
 @keyframes App-logo-spin {
   from {

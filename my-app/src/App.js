@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import './App.css'
+// import Radium, { StyleRoot } from 'radium'
 import Person from './Person/Person'
 
 class App extends Component {
   
   state = {
     persons: [
-      { id: 10, name: 'Mary', age: 48},
-      { id: 11, name: 'Claudia', age: 28},
-      { id: 12, name: 'Steph', age: 66}
+      {id: 10, name: 'Mary', age: 48},
+      {id: 11, name: 'Claudia', age: 28},
+      {id: 12, name: 'Steph', age: 66}
     ],
     Hobbies: 'None',
     showPersons: false 
@@ -17,9 +18,9 @@ class App extends Component {
   switchNameHandler = (newName) => {
     this.setState( {
       persons: [
-        { name: newName, age: 48},
-        { name: 'Claudia', age: 28},
-        { name: 'Steph', age: 1}
+        {id: 10, name: newName, age: 48},
+        {id: 11, name: 'Claudia', age: 28},
+        {id: 12, name: 'Steph', age: 1}
       ]
     } )
   }
@@ -27,7 +28,6 @@ class App extends Component {
   nameChangeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => p.id === id)
     const person = { ...this.state.persons[personIndex] }
-    // Or const person = Object.assign({}, this.state.persons[personIndex])
 
     person.name = event.target.value;
     const persons = [...this.state.persons];
@@ -36,7 +36,6 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice;
     const persons = [...this.state.persons]
     persons.splice(personIndex, 1);
     this.setState({persons: persons}) 
@@ -52,6 +51,9 @@ class App extends Component {
     const btnStyle = {
       backgroundColor: 'gray',
       color: 'white',
+      // ':hover': {
+      //   backgroundColor: '#0AF'
+      // }
     }
     const toogleStyle = {
       backgroundColor: '#73a1e6',
@@ -72,19 +74,31 @@ class App extends Component {
           })}
         </div> 
       )
+      toogleStyle.backgroundColor = '#b32d00';
+    }
+
+    let classes = []
+    if(this.state.persons.length <= 2) {
+      classes.push('thin')
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('purple')
     }
 
     return (
-      <div className='App'>
-        <h1>Hi there!!!</h1>
-        <p>This is really working</p>
-        <button style={btnStyle} onClick={ () => this.switchNameHandler('Clotilde')}>Switch name</button>
-        <button style={toogleStyle} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
-        {persons}
-      </div>
+      // <StyleRoot>
+        <div className='App'>
+          <h1>Hi there!!!</h1>
+          <p className={classes.join(' ')}>This is really working</p>
+          <button style={btnStyle} onClick={ () => this.switchNameHandler('Clotilde')}>Switch name</button>
+          <button style={toogleStyle} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+          {persons}
+        </div>
+      // </StyleRoot>
     )
     // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi there!!!'))
   }
 }
 
+// export default Radium(App)
 export default App
