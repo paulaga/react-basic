@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import classes from './App.module.css'
 // import Radium, { StyleRoot } from 'radium'
-import Person from './Person/Person'
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import Persons from '../Components/Persons/Persons'
+import Cockpit from '../Components/Cockpit/Cockpit';
+// import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
 class App extends Component {
-  
   state = {
     persons: [
       {id: 10, name: 'Mary', age: 48},
@@ -49,49 +49,25 @@ class App extends Component {
 
   render () {
 
-    const btnStyle = {
-      backgroundColor: 'gray',
-      color: 'white',
-      // ':hover': {
-      //   backgroundColor: '#0AF'
-      // }
-    }
-
     let persons = null;
-    let toogleStyle = '';
     
     if(this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((e, index) => {
-            return <ErrorBoundary key={e.id}>
-              <Person
-                click={() => this.deletePersonHandler(index)} 
-                name={e.name} 
-                age={e.age}
-                changed={(event) => this.nameChangeHandler(event, e.id)}/>
-            </ErrorBoundary>
-          })}
-        </div> 
-      )
-      toogleStyle = classes.hide;
-    }
-
-    let assignedClasses = []
-    if(this.state.persons.length <= 2) {
-      assignedClasses.push(classes.thin)
-    }
-    if(this.state.persons.length <= 1) {
-      assignedClasses.push(classes.purple)
+      persons =
+        <Persons 
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangeHandler} />
     }
 
     return (
       // <StyleRoot>
         <div className={classes.App}>
-          <h1>Hi there!!!</h1>
-          <p className={assignedClasses.join(' ')}>This is really working</p>
-          <button style={btnStyle} onClick={ () => this.switchNameHandler('Clotilde')}>Switch name</button>
-          <button className={toogleStyle} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+          <Cockpit
+            appTitle={this.props.title} 
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            switcher={this.switchNameHandler}
+            forToogle={this.togglePersonsHandler} />
           {persons}
         </div>
       // </StyleRoot>
