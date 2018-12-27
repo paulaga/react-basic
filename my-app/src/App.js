@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css'
+import classes from './App.module.css'
 // import Radium, { StyleRoot } from 'radium'
 import Person from './Person/Person'
 
@@ -55,12 +55,10 @@ class App extends Component {
       //   backgroundColor: '#0AF'
       // }
     }
-    const toogleStyle = {
-      backgroundColor: '#73a1e6',
-      color: 'white',
-    }
 
     let persons = null;
+    let toogleStyle = '';
+    
     if(this.state.showPersons) {
       persons = (
         <div>
@@ -74,24 +72,24 @@ class App extends Component {
           })}
         </div> 
       )
-      toogleStyle.backgroundColor = '#b32d00';
+      toogleStyle = classes.hide;
     }
 
-    let classes = []
+    let assignedClasses = []
     if(this.state.persons.length <= 2) {
-      classes.push('thin')
+      assignedClasses.push(classes.thin)
     }
     if(this.state.persons.length <= 1) {
-      classes.push('purple')
+      assignedClasses.push(classes.purple)
     }
 
     return (
       // <StyleRoot>
-        <div className='App'>
+        <div className={classes.App}>
           <h1>Hi there!!!</h1>
-          <p className={classes.join(' ')}>This is really working</p>
+          <p className={assignedClasses.join(' ')}>This is really working</p>
           <button style={btnStyle} onClick={ () => this.switchNameHandler('Clotilde')}>Switch name</button>
-          <button style={toogleStyle} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
+          <button className={toogleStyle} onClick={ this.togglePersonsHandler }>Toggle Persons</button>
           {persons}
         </div>
       // </StyleRoot>
