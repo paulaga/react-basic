@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './Cockpit.module.css'
+import Aux from '../../hoc/Aux'
 
 const cockpit = (props) => {
   const btnStyle = {
@@ -7,10 +8,10 @@ const cockpit = (props) => {
     color: 'white'
   }
   let assignedClasses = []
-  let toogleStyle = ''
+  let toogleStyle = classes.Button
 
   if (props.showPersons) {
-    toogleStyle = classes.hide
+    toogleStyle = [classes.Button, classes.hide].join(' ')
   }
 
   if (props.persons.length <= 2) {
@@ -21,12 +22,13 @@ const cockpit = (props) => {
   }
 
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
+      {/* Could use simple <> </> or <Fragment> imported from React, {Fragment} */}
       <h1>{props.appTitle}</h1>
       <p className={assignedClasses.join(' ')}>This is really working</p>
       <button style={btnStyle} onClick={() => props.switcher('Clotilde')}>Switch name</button>
       <button className={toogleStyle} onClick={props.forToogle}>Toggle Persons</button>
-    </div>
+    </Aux>
   )
 }
 

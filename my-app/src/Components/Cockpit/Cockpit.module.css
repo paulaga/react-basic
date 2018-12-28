@@ -2,19 +2,19 @@
 .purple{ color: #939;}
 .thin{ font-weight: 100;}
 
-.Cockpit button{
+.Button{
   background-color: #73a1e6;
   color: #FFF;
 }
-.Cockpit button:hover{
+.Button:hover{
   background-color: lightgreen;
   color: #4b4b4b;
 }
-.Cockpit button.hide{
+.Button.hide{
   background-color: #c70b3d;
   color: #FFF;
 }
-.Cockpit button.hide:hover{
+.Button.hide:hover{
   background-color: #ffb6b6;
   color: #4b4b4b;
 }
