@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import classes from './App.module.css'
 // import Radium, { StyleRoot } from 'radium'
 import Persons from '../Components/Persons/Persons'
@@ -7,16 +7,52 @@ import withClass from '../hoc/withClass'
 import Aux from '../hoc/Aux'
 // import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
-class App extends Component {
-  state = {
-    persons: [
-      {id: 10, name: 'Mary', age: 48},
-      {id: 11, name: 'Claudia', age: 28},
-      {id: 12, name: 'Steph', age: 66}
-    ],
-    Hobbies: 'None',
-    showPersons: false 
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    console.log('[App.js] Inside Constructor', props)
+    this.state = {
+      persons: [
+        {id: 10, name: 'Mary', age: 48},
+        {id: 11, name: 'Claudia', age: 28},
+        {id: 12, name: 'Steph', age: 66}
+      ],
+      Hobbies: 'None',
+      showPersons: false,
+      toggleCounter: 0 
+    }
   }
+  
+  // *************************************************************
+  // The way in ES6 and so. Cleaner and doesn't need constructor
+  // *************************************************************
+  // state = {
+  //   persons: [
+  //     {id: 10, name: 'Mary', age: 48},
+  //     {id: 11, name: 'Claudia', age: 28},
+  //     {id: 12, name: 'Steph', age: 66}
+  //   ],
+  //   Hobbies: 'None',
+  //   showPersons: false 
+  // }
+  // *************************************************************
+
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount()')
+  }
+
+  componentWillUpdate (nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside componentWillUpdate()', nextProps, nextState)
+  }
+
+  componentDidUpdate () {
+    console.log('[UPDATE App.js] Inside componentDidUpdate()')
+  }
+
+  componentDidMount() {
+    console.log('[App.js] Inside componentDidMount()')
+  }
+  
 
   switchNameHandler = (newName) => {
     this.setState( {
@@ -46,11 +82,16 @@ class App extends Component {
 
   togglePersonsHandler = () => {
     const show = this.state.showPersons
-    this.setState( { showPersons: !show } )
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !show, 
+        toggleCounter: prevState.toggleCounter + 1 
+      }
+    })
   }
 
   render () {
-
+    console.log('[App.js] Inside render()')
     let persons = null;
     
     if(this.state.showPersons) {
@@ -64,6 +105,7 @@ class App extends Component {
     return (
       // <StyleRoot>
         <Aux>
+          <button onClick={() => this.setState({showPersons: true})}>Show Person</button>
           <Cockpit
             appTitle={this.props.title} 
             showPersons={this.state.showPersons}
