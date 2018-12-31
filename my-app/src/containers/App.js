@@ -3,7 +3,8 @@ import classes from './App.module.css'
 // import Radium, { StyleRoot } from 'radium'
 import Persons from '../Components/Persons/Persons'
 import Cockpit from '../Components/Cockpit/Cockpit'
-import WithClass from '../hoc/WithClass'
+import withClass from '../hoc/withClass'
+import Aux from '../hoc/Aux'
 // import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
 class App extends Component {
@@ -62,7 +63,7 @@ class App extends Component {
 
     return (
       // <StyleRoot>
-        <WithClass classes={classes.App}>
+        <Aux>
           <Cockpit
             appTitle={this.props.title} 
             showPersons={this.state.showPersons}
@@ -70,7 +71,7 @@ class App extends Component {
             switcher={this.switchNameHandler}
             forToogle={this.togglePersonsHandler} />
           {persons}
-        </WithClass>
+        </Aux>
       // </StyleRoot>
     )
     // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Hi there!!!'))
@@ -78,4 +79,4 @@ class App extends Component {
 }
 
 // export default Radium(App)
-export default App
+export default withClass(App, classes.App)
