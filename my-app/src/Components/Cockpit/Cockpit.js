@@ -33,4 +33,5 @@ const cockpit = (props) => {
   )
 }
 
+// React memo is a hoc that wraps functional components
 export default React.memo(cockpit)
