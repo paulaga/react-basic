@@ -7,6 +7,8 @@ import withClass from '../hoc/withClass'
 import Aux from '../hoc/Aux'
 // import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 
+export const AuthContext = React.createContext(false)
+
 class App extends PureComponent {
   constructor(props) {
     super(props)
@@ -19,7 +21,8 @@ class App extends PureComponent {
       ],
       Hobbies: 'None',
       showPersons: false,
-      toggleCounter: 0 
+      toggleCounter: 0,
+      isAuthenticated: false
     }
   }
   
@@ -36,13 +39,27 @@ class App extends PureComponent {
   //   showPersons: false 
   // }
   // *************************************************************
-
-  componentWillMount() {
-    console.log('[App.js] Inside componentWillMount()')
+  
+  // ************************************************************
+  // DEPRECATED in 17.0
+  // ************************************************************
+  // componentWillMount() {
+    //   console.log('[App.js] Inside componentWillMount()')
+    // }
+    
+  // componentWillUpdate (nextProps, nextState) {
+    //   console.log('[UPDATE App.js] Inside componentWillUpdate()', nextProps, nextState)
+    // }
+  // *************************************************************
+  
+  static getDerivedStateFromProps (nextProps, prevState) {
+    console.log('[UPDATE App.js] Inside getDerivedStateFromProps()', 
+    nextProps, prevState)
+    return prevState
   }
-
-  componentWillUpdate (nextProps, nextState) {
-    console.log('[UPDATE App.js] Inside componentWillUpdate()', nextProps, nextState)
+  
+  getSnapshotBeforeUpdate () {
+    console.log('[UPDATE App.js] Inside getSnapshotBeforeUpdate()')
   }
 
   componentDidUpdate () {
@@ -53,6 +70,9 @@ class App extends PureComponent {
     console.log('[App.js] Inside componentDidMount()')
   }
   
+  loginHandler = () => {
+    this.setState({ isAuthenticated: true })
+  }
 
   switchNameHandler = (newName) => {
     this.setState( {
@@ -110,9 +130,12 @@ class App extends PureComponent {
             appTitle={this.props.title} 
             showPersons={this.state.showPersons}
             persons={this.state.persons}
+            login={this.loginHandler}
             switcher={this.switchNameHandler}
             forToogle={this.togglePersonsHandler} />
-          {persons}
+          <AuthContext.Provider value={this.state.isAuthenticated}>
+            {persons}
+          </AuthContext.Provider>
         </Aux>
       // </StyleRoot>
     )

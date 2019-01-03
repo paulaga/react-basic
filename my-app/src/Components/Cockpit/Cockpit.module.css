@@ -3,7 +3,7 @@
 .thin{ font-weight: 100;}
 
 .Button{
-  background-color: #73a1e6;
+  background-color: #009639;
   color: #FFF;
 }
 .Button:hover{
@@ -17,4 +17,8 @@
 .Button.hide:hover{
   background-color: #ffb6b6;
   color: #4b4b4b;
+}
+.login{
+  background-color: #a3e2ca;
+  color: rgb(36, 36, 36);
 }

@@ -4,7 +4,7 @@ import Aux from '../../hoc/Aux'
 
 const cockpit = (props) => {
   const btnStyle = {
-    backgroundColor: 'gray',
+    backgroundColor: '#51b879',
     color: 'white'
   }
   let assignedClasses = []
@@ -26,10 +26,11 @@ const cockpit = (props) => {
       {/* Could use simple <> </> or <Fragment> imported from React, {Fragment} */}
       <h1>{props.appTitle}</h1>
       <p className={assignedClasses.join(' ')}>This is really working</p>
+      <button className={classes.login} onClick={props.login}>Login</button>
       <button style={btnStyle} onClick={() => props.switcher('Clotilde')}>Switch name</button>
       <button className={toogleStyle} onClick={props.forToogle}>Toggle Persons</button>
     </Aux>
   )
 }
 
-export default cockpit
+export default React.memo(cockpit)
